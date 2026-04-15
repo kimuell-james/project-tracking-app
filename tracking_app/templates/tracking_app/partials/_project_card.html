@@ -1,0 +1,25 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ project.name }}</h5>
+
+    {% if project.description %}
+    <p class="card-text text-muted">
+      {{ project.description|truncatechars:80 }}
+    </p>
+    {% endif %}
+
+    <small>Progress: {{ project.get_progress }}%</small>
+    <div class="progress mb-2">
+      <div class="progress-bar" style="width: {{ project.progress }}%;"></div>
+    </div>
+
+    <span class="badge bg-secondary"> {{ project.status }} </span>
+
+    
+  </div>
+  <div class="card-footer">
+    <a href="#" class="btn btn-sm btn-primary float-end">
+      View Project
+    </a>
+  </div>
+</div>

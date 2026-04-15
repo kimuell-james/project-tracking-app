@@ -1,0 +1,60 @@
+{% extends 'tracking_app/main.html' %} {% block content %}
+
+<div class="">
+  <h1>Phase</h1>
+  <hr />
+
+  <div>
+    <table id="phaseTable" class="table table-striped table-hover text-center">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Event</th>
+          <th>Start Datetime</th>
+          <th>End Datetime</th>
+          <th>Penalty</th>
+          <th>Flat rate</th>
+          <th>Penalty per min</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <a href="{% url 'sessions_page' event.id %}" class="event-name"
+              >{{event.name}}</a
+            >
+          </td>
+          <td>{{event.start_datetime}}</td>
+          <td>{{event.end_datetime}}</td>
+          <td>{{event.penalty_amount}}</td>
+          <td>{{event.flat_rate}}</td>
+          <td>{{event.per_minute_penalty}}</td>
+          <td>
+            <a
+              href="{% url 'download_attendance' event.id %}"
+              class="btn btn-primary"
+            >
+              <i class="bi bi-file-earmark-pdf"></i> Download Attendance
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">No events available.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const table = new DataTable("#eventTable");
+  });
+</script>
+
+{% endblock %}

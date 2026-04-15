@@ -1,0 +1,20 @@
+{% extends 'tracking_app/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-4">
+  <h1>Project List</h1>
+  <hr />
+
+  <div class="row g-3">
+    {% for project in projects %}
+      <div class="col-12 col-md-6 col-lg-4">
+        {% include 'tracking_app/partials/_project_card.html' %}
+      </div>
+    {% empty %}
+      <p>No projects found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
