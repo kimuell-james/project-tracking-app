@@ -4,10 +4,11 @@
 
 <div class="container mt-4">
   <h1>Project List</h1>
+  <button class="btn btn-sm btn-primary">Add Project</button>
   <hr />
 
   <div class="row g-3">
-    {% for project in projects %}
+    {% for project in project %}
       <div class="col-12 col-md-6 col-lg-4">
         {% include 'tracking_app/partials/_project_card.html' %}
       </div>

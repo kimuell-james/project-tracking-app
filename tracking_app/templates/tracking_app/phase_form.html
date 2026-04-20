@@ -10,12 +10,6 @@
         <tr>
           <th>No.</th>
           <th>Event</th>
-          <th>Start Datetime</th>
-          <th>End Datetime</th>
-          <th>Penalty</th>
-          <th>Flat rate</th>
-          <th>Penalty per min</th>
-          <th>Download</th>
         </tr>
       </thead>
       <tbody>
@@ -23,22 +17,8 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <a href="{% url 'sessions_page' event.id %}" class="event-name"
-              >{{event.name}}</a
+            <a href="" class="phase-name">Phase</a
             >
-          </td>
-          <td>{{event.start_datetime}}</td>
-          <td>{{event.end_datetime}}</td>
-          <td>{{event.penalty_amount}}</td>
-          <td>{{event.flat_rate}}</td>
-          <td>{{event.per_minute_penalty}}</td>
-          <td>
-            <a
-              href="{% url 'download_attendance' event.id %}"
-              class="btn btn-primary"
-            >
-              <i class="bi bi-file-earmark-pdf"></i> Download Attendance
-            </a>
           </td>
         </tr>
         {% empty %}
@@ -53,7 +33,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const table = new DataTable("#eventTable");
+    const table = new DataTable("#phaseTable");
   });
 </script>
 

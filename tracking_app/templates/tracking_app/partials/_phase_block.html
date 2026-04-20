@@ -1,0 +1,49 @@
+<div class="accordion" id="phaseAccordion">
+
+  {% for phase in phases %}
+  <div class="accordion-item">
+    
+    <!-- HEADER -->
+    <h2 class="accordion-header" id="heading{{ phase.id }}">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse{{ phase.id }}"
+              aria-expanded="false"
+              aria-controls="collapse{{ phase.id }}">
+        {{ phase.name }}
+      </button>
+    </h2>
+
+    <!-- BODY -->
+    <div id="collapse{{ phase.id }}"
+         class="accordion-collapse collapse"
+         aria-labelledby="heading{{ phase.id }}"
+         data-bs-parent="#phaseAccordion">
+
+      <div class="accordion-body">
+
+        {% if phase.task_set.all %}
+          <ul class="list-group">
+            {% for task in phase.task_set.all %}
+              <li class="list-group-item d-flex justify-content-between">
+                {{ task.name }}
+
+                {% if task.completed %}
+                  <span class="badge bg-success">Done</span>
+                {% else %}
+                  <span class="badge bg-warning text-dark">Pending</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">No tasks yet.</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+
+</div>

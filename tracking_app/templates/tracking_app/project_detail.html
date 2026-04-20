@@ -1,48 +1,27 @@
 {% extends 'tracking_app/main.html' %} {% block content %}
 
 <div class="">
-  <h1>Project Details</h1>
+  <h1>{{ project.name }}</h1>
+  <h4>Status: {{ project.status }}</h4>
+  <strong>Progress: {{ project.get_progress }}%</strong>
+    <div class="progress mb-2">
+      <div class="progress-bar" data-progress="{{ project.get_progress }}"></div>
+    </div>
+  <strong>Description</strong>
+  <p>{{ project.description}}</p>
   <hr />
 
   <div>
-    <table
-      id="projectTable"
-      class="table table-striped table-hover text-center"
-    >
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Project Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for project in project %}
-        <tr>
-          <td>{{ forloop.counter }}</td>
-          <td>
-            <a href="{% url 'project' project.pk%}">{{project.name}}</a>
-          </td>
-          <td>{{project.start_datetime}}</td>
-          <td>{{project.end_datetime}}</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="6">No projects available.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <div class="row g-3">
+    {% for phase in phases %}
+      <div class="col-12 col-md-6 col-lg-4">
+        {% include 'tracking_app/partials/_phase_block.html' %}
+      </div>
+    {% empty %}
+      <p>No projects found.</p>
+    {% endfor %}
+  </div>
   </div>
 </div>
-
-<!-- <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const table = new DataTable("#projectTable");
-  });
-</script> -->
 
 {% endblock %}
