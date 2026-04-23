@@ -10,6 +10,8 @@ urlpatterns = [
     # path('user/', views.userPage, name="user-page" ),
 
     path('project_list/', views.project_list, name="project_list" ),
+    path('project_list/add_project/', views.add_project, name='add_project'),
+
     path('project_detail/view/<int:pk>/', views.project_detail, name="project_detail" ),
 
 
