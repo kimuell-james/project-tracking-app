@@ -9,9 +9,9 @@ def home(request):
     return render(request, 'tracking_app/main.html')
 
 def project_list(request):
-    project = Project.objects.all()
+    projects = Project.objects.all()
 
-    context = {'project':project}
+    context = {'projects':projects}
 
     return render(request, 'tracking_app/project_list.html', context)
 
@@ -22,3 +22,4 @@ def project_detail(request, pk):
     context = {'project':project, 'phases':phases}
 
     return render(request, 'tracking_app/project_detail.html', context)
+

@@ -1,49 +1,30 @@
 <div class="accordion" id="phaseAccordion">
 
   {% for phase in phases %}
+
   <div class="accordion-item">
-    
-    <!-- HEADER -->
-    <h2 class="accordion-header" id="heading{{ phase.id }}">
-      <button class="accordion-button collapsed" type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapse{{ phase.id }}"
-              aria-expanded="false"
-              aria-controls="collapse{{ phase.id }}">
-        {{ phase.name }}
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <strong>{{ phase.name }} - Tasks: {{ phase.tasks.all|length }}</strong>
       </button>
     </h2>
+    
+      {% for task in phase.tasks.all %}
+      
+          {% include 'tracking_app/partials/_task_item.html' with task=task %}
 
-    <!-- BODY -->
-    <div id="collapse{{ phase.id }}"
-         class="accordion-collapse collapse"
-         aria-labelledby="heading{{ phase.id }}"
-         data-bs-parent="#phaseAccordion">
+        {% empty %}
 
-      <div class="accordion-body">
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <strong class="text-muted">No tasks yet.</strong>
+          </div>
+        </div>
 
-        {% if phase.task_set.all %}
-          <ul class="list-group">
-            {% for task in phase.task_set.all %}
-              <li class="list-group-item d-flex justify-content-between">
-                {{ task.name }}
-
-                {% if task.completed %}
-                  <span class="badge bg-success">Done</span>
-                {% else %}
-                  <span class="badge bg-warning text-dark">Pending</span>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p class="text-muted">No tasks yet.</p>
-        {% endif %}
-
-      </div>
-    </div>
+        {% endfor %}
 
   </div>
+
   {% endfor %}
 
 </div>

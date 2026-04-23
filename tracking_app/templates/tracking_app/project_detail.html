@@ -12,15 +12,15 @@
   <hr />
 
   <div>
-  <div class="row g-3">
-    {% for phase in phases %}
-      <div class="col-12 col-md-6 col-lg-4">
-        {% include 'tracking_app/partials/_phase_block.html' %}
-      </div>
-    {% empty %}
-      <p>No projects found.</p>
-    {% endfor %}
-  </div>
+
+    <div class="container-fluid">
+      {% for phase in phases %}
+          {% include 'tracking_app/partials/_phase_block.html' %}
+      {% empty %}
+        <p>No phases found.</p>
+      {% endfor %}
+    </div>
+
   </div>
 </div>
 
