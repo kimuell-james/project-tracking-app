@@ -9,3 +9,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         # exclude = ['student_id']
         fields = '__all__'
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
