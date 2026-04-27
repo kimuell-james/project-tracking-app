@@ -1,6 +1,6 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,17 +16,17 @@
       rel="stylesheet"
       href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/track-app.css' %}">
-
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/track-app.css' %}"
+    />
   </head>
 
   <body class="{% block body_class %}{% endblock %}">
-      {% include 'tracking_app/sidebar.html' %}
+    {% include 'tracking_app/sidebar.html' %}
 
-    <div class="main-content">
-      {% block content %}
-      
-      {% endblock %}</div>
+    <div class="main-content">{% block content %} {% endblock %}</div>
 
     <!-- Toast Container (Top Right) -->
     <!-- <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">

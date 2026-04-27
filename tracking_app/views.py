@@ -7,6 +7,7 @@ from .models import *
 from .forms import *
 from .decorators import unauthenticated_user
 
+
 @unauthenticated_user
 def login_user(request):
     if request.method == "POST":
@@ -17,56 +18,76 @@ def login_user(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("home")  
+                return redirect("home")
             else:
                 return redirect("login")
     else:
         form = LoginForm()
 
-    context = {'form': form}
+    context = {"form": form}
 
     return render(request, "tracking_app/login_page.html", context)
+
 
 @login_required(login_url="/login/")
 def logout_user(request):
     logout(request)
     return redirect("login")
 
+
 @login_required(login_url="/login/")
 def home(request):
     users = User.objects.all()
 
-    context = {'users':users}
+    context = {"users": users}
 
-    return render(request, 'tracking_app/main.html', context)
+    return render(request, "tracking_app/main.html", context)
+
 
 @login_required(login_url="/login/")
 def project_list(request):
     projects = Project.objects.all()
 
-    context = {'projects':projects}
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Project added successfully!")
+            return redirect("project_list")
+    else:
+        form = ProjectForm()
 
-    return render(request, 'tracking_app/project_list.html', context)
+    context = {"projects": projects, "form": form}
+
+    return render(request, "tracking_app/project_list.html", context)
+
 
 @login_required(login_url="/login/")
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     phases = Phase.objects.filter(project=project)
 
-    context = {'project':project, 'phases':phases}
-
-    return render(request, 'tracking_app/project_detail.html', context)
-
-@login_required(login_url="/login/")
-def add_project(request):
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            messages.success(request, "User added successfully!")
+            messages.success(request, "Project detail updated successfully!")
             return redirect("project_list")
-
     else:
-        form = ProjectForm()
+        form = ProjectForm(instance=project)
 
-    return render(request, 'tracking_app/project_form.html', {"form": form})
+    context = {"project": project, "phases": phases, "form": form}
+
+    return render(request, "tracking_app/project_detail.html", context)
+
+
+@login_required(login_url="/login/")
+def delete_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+
+    if request.method == "POST":
+        project.delete()
+        messages.success(request, "Project deleted successfully!")
+        return redirect("project_list")
+
+    return redirect("project_list")

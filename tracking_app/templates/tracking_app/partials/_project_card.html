@@ -1,6 +1,9 @@
 <div class="card mb-3">
   <div class="card-body">
-    <h5 class="card-title">{{ project.name }}</h5>
+    
+    <a href="{% url 'project_detail' project.pk %}">
+      <h5 class="card-title">{{ project.name }}</h5>
+    </a>
 
     {% if project.description %}
     <p class="card-text text-muted">
@@ -16,11 +19,6 @@
     <span class="badge bg-secondary"> {{ project.status }} </span>
 
     
-  </div>
-  <div class="card-footer">
-    <a href="{% url 'project_detail' project.pk %}" class="btn btn-sm btn-primary float-end">
-      View Project
-    </a>
   </div>
 </div>
 

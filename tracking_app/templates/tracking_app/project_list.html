@@ -1,23 +1,83 @@
-{% extends 'tracking_app/main.html' %}
-{% load static %}
-{% block content %}
+{% extends 'tracking_app/main.html' %} {% load static %} {% block content %}
 
 <div class="container mt-4">
-  <h1>Project List</h1>
-    <a href="{% url 'add_project' %}" type="button" class="btn btn-success">
-            + Add Project
-    </a>
+  <h1>My Projects</h1>
+  <hr />
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <div class="fw-semibold">Filter</div>
+    <div class="input-group flex-grow-1">
+      <span class="input-group-text" id="basic-addon1">Search</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter keywords"
+        aria-label="Enter keywords"
+        aria-describedby="button-addon2"
+      />
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        id="button-addon2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-search-icon lucide-search"
+        >
+          <path d="m21 21-4.34-4.34" />
+          <circle cx="11" cy="11" r="8" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-success btn-sm text-nowrap"
+      data-bs-toggle="modal"
+      data-bs-target="#projectModal"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-file-plus-corner-icon lucide-file-plus-corner"
+      >
+        <path
+          d="M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35"
+        />
+        <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+        <path d="M14 19h6" />
+        <path d="M17 16v6" />
+      </svg>
+      Add Project
+    </button>
+  </div>
+
   <hr />
 
   <div class="row g-3">
     {% for project in projects %}
-      <div class="col-12 col-md-6 col-lg-4">
-        {% include 'tracking_app/partials/_project_card.html' %}
-      </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      {% include 'tracking_app/partials/_project_card.html' %}
+    </div>
     {% empty %}
-      <p>No projects found.</p>
+    <p>No projects found.</p>
     {% endfor %}
   </div>
 </div>
 
-{% endblock %}
+{% include 'tracking_app/partials/_project_form.html' %} {% endblock %}

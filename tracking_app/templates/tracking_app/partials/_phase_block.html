@@ -1,26 +1,35 @@
 <div class="accordion" id="phaseAccordion">
-
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading{{ phase.id }}">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ phase.id }}" aria-expanded="true" aria-controls="collapse{{ phase.id }}">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse{{ phase.id }}"
+        aria-expanded="true"
+        aria-controls="collapse{{ phase.id }}"
+      >
         <strong>{{ phase.name }} - Tasks: {{ phase.tasks.all|length }}</strong>
       </button>
     </h2>
+
+    <!-- prettier-ignore -->
+    {% for task in phase.tasks.all %} 
     
-      {% for task in phase.tasks.all %}
-      
-          {% include 'tracking_app/partials/_task_item.html' with task=task %}
+    {% include 'tracking_app/partials/_task_item.html' with task=task %} 
 
-        {% empty %}
+    {% empty %}
 
-        <div id="collapse{{ phase.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-              <strong class="text-muted">No tasks yet.</strong>
-          </div>
-        </div>
+    <div
+      id="collapse{{ phase.id }}"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <strong class="text-muted">No tasks yet.</strong>
+      </div>
+    </div>
 
-        {% endfor %}
-
+    {% endfor %}
   </div>
-
 </div>

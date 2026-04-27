@@ -1,11 +1,30 @@
-<div id="collapse{{ phase.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-    <div class="accordion-body">
-        <input class="form-check-input" type="checkbox" {% if task.completed %}checked{% endif %}>
+<div
+  id="collapse{{ phase.id }}"
+  class="accordion-collapse collapse"
+  data-bs-parent="#accordionExample"
+>
+  <div class="accordion-body p-0">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item d-flex align-items-center gap-3">
+        <!-- Checkbox -->
+        <!-- prettier-ignore -->
+        <input class="form-check-input" type="checkbox" {% if task.status == "completed" %}checked{% endif %}>
 
-        <span class="fw-semibold">{{ task.title }}</span>
+        <!-- Task Title -->
+        <span
+          class="fw-semibold {% if task.status == 'completed' %}text-decoration-line-through text-muted{% endif %}"
+        >
+          {{ task.title }}
+        </span>
 
+        <!-- Separator -->
         <span class="text-muted">|</span>
 
-        <span class="text-muted small">{{ task.description }}</span>
-    </div>
+        <!-- Description -->
+        <span class="text-muted">
+          {{ task.description|default:"No description" }}
+        </span>
+      </li>
+    </ul>
+  </div>
 </div>
