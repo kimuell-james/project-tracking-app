@@ -1,61 +1,90 @@
 {% load static %}
 
-<div class="offcanvas offcanvas-start show sidebar" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas" aria-labelledby="offcanvasLabel" style="visibility: visible; transform: none;">
+<div
+  class="offcanvas offcanvas-start show sidebar"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  tabindex="-1"
+  id="offcanvas"
+  aria-labelledby="offcanvasLabel"
+  style="visibility: visible; transform: none"
+>
+  <div class="offcanvas-header flex-column align-items-center">
+    <!-- Logo -->
+    <img
+      src="{% static 'images/tsekku-logo-1.png' %}"
+      alt="Logo"
+      width="50"
+      height="50"
+      class="d-inline-block align-text-top mb-2"
+    />
 
-    <div class="offcanvas-header flex-column align-items-center">
-        <!-- Logo -->
-        <img src="#" alt="Logo" width="100" height="100"
-            class="d-inline-block align-text-top mb-2">
+    <!-- Username -->
+    <h5 class="text-center username">Hello, {{ request.user.username }}!</h5>
+  </div>
 
-        <!-- Username -->
-        <h5 class="text-center username">Hello, {{ request.user.username }}!</h5>
+  <!-- Navs -->
+  <div class="offcanvas-body d-flex flex-column flex-grow-1">
+    <ul class="nav flex-column sidebar-menu">
+      <li class="nav-item">
+        <a
+          class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+          href="{% url 'home' %}"
+        >
+          Dashboard
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link {% if request.resolver_match.url_name in 'student_record add_record view_record update_record delete_record predict_track'%}active{% endif %}"
+          href="{% url 'project_list' %}"
+        >
+          Projects
+        </a>
+      </li>
+    </ul>
+
+    <!-- Logout -->
+    <div class="mt-auto">
+      <button
+        class="btn btn-secondary w-100"
+        data-bs-toggle="modal"
+        data-bs-target="#logoutModal"
+        id="logout-btn"
+      >
+        Logout
+      </button>
     </div>
-
-    <!-- Navs -->
-    <div class="offcanvas-body d-flex flex-column flex-grow-1">
-        <ul class="nav flex-column sidebar-menu">
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                    href="{% url 'home' %}">
-                    Dashboard
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name in 'student_record add_record view_record update_record delete_record predict_track'%}active{% endif %}"
-                    href="{% url 'project_list' %}">
-                    Projects
-                </a>
-            </li>
-
-        </ul>
-
-        <!-- Logout -->
-        <div class="mt-auto">
-            <button class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#logoutModal"
-                id="logout-btn">
-                Logout
-            </button>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!-- Logout Confirmation Modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-secondary text-white">
-                <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to log out?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-            </div>
-        </div>
+<div
+  class="modal fade"
+  id="logoutModal"
+  tabindex="-1"
+  aria-labelledby="logoutModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary text-white">
+        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Are you sure you want to log out?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
     </div>
+  </div>
 </div>

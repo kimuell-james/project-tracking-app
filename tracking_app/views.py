@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import JsonResponse
 
 from .models import *
 from .forms import *
@@ -91,3 +92,32 @@ def delete_project(request, pk):
         return redirect("project_list")
 
     return redirect("project_list")
+
+
+@login_required
+def toggle_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+
+    desired = request.GET.get("value")
+
+    if desired == "true":
+        task.status = "completed"
+        task.progress = 100
+    else:
+        task.status = "not_started"
+        task.progress = 0
+
+    task.save()
+
+    phase = task.phase
+    project = phase.project
+
+    return JsonResponse(
+        {
+            "status": task.status,
+            "progress": task.progress,
+            "phase_id": phase.id,
+            "phase_progress": phase.get_progress(),
+            "project_progress": project.get_progress(),
+        }
+    )

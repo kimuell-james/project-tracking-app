@@ -1,6 +1,5 @@
 <div class="card mb-3">
   <div class="card-body">
-    
     <a href="{% url 'project_detail' project.pk %}">
       <h5 class="card-title">{{ project.name }}</h5>
     </a>
@@ -11,19 +10,17 @@
     </p>
     {% endif %}
 
-    <small>Progress: {{ project.get_progress }}%</small>
+    <small id="project-progress-text"
+      >Progress: {{ project.get_progress }}%</small
+    >
     <div class="progress mb-2">
-      <div class="progress-bar" data-progress="{{ project.get_progress }}"></div>
+      <div
+        class="progress-bar"
+        id="project-progress-bar"
+        style="width: {{ project.get_progress }}%;"
+      ></div>
     </div>
 
     <span class="badge bg-secondary"> {{ project.status }} </span>
-
-    
   </div>
 </div>
-
-<script>
-  document.querySelectorAll('.progress-bar').forEach(bar => {
-    bar.style.width = bar.dataset.progress + '%';
-  });
-</script>
